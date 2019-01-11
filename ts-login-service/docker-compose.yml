@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  app:
+    build: .
+    ports:
+    - "12342:12342"
+    expose:
+    - "6300"
+    volumes:
+    - "./jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6300,destfile=jacoco-it.exec,output=tcpserver,address=*"
+  sonar:
+    image: sonarqube:alpine
+    ports:
+    - "9000:9000"
+  maven:
+    image: maven:alpine
+    command: "tail -f /dev/null"
+    volumes:
+    - "../:/app"
