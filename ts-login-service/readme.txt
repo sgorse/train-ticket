@@ -21,10 +21,11 @@ Steps for code coverage (Make sure you are in the ts-login-service directory):
 1. mvn clean package
 2. docker-compose up -d # Deploy the login service
 3. Run the integration tests or manually invoke the service by going to http://localhost:12342/welcome
-4. docker exec -it tsloginservice_maven_1 bash # Access the maven container to run mvn commands
-5. mvn jacoco:dump -Djacoco.address=app # Dump the jacoco logs so SonarQube will have access.
-6. mvn sonar:sonar -Dsonar.host.url=http://sonar:9000 # Run the SonarQube Analysis
-7. Go to http://sonar:9000 to see the results of the coverage in SonarQube.
+4. docker exec -it **Maven_Container_Name** bash # Access the maven container to run mvn commands
+5. cd app/ts-login-service
+6. mvn jacoco:dump -Djacoco.address=app # Dump the jacoco logs so SonarQube will have access.
+7. mvn sonar:sonar -Dsonar.host.url=http://sonar:9000 # Run the SonarQube Analysis
+8. Go to http://sonar:9000 to see the results of the coverage in SonarQube.
 
 
 
