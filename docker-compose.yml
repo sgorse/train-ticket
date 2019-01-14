@@ -572,18 +572,24 @@ services:
                 JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6303,destfile=jacoco-it.exec,output=tcpserver,address=*"
 
 
-  # ts-admin-travel-service:
-  #               build: ts-admin-travel-service
-  #               image: ts/ts-admin-travel-service
-  #               restart: always
-  #               ports:
-  #                 - 16114:16114
-  #               deploy:
-  #                 replicas: 1
-  #                 restart_policy:
-  #                   condition: on-failure
-  #               networks:
-  #                 - my-network
+  ts-admin-travel-service:
+                build: ts-admin-travel-service
+                image: ts/ts-admin-travel-service
+                restart: always
+                ports:
+                  - 16114:16114
+                deploy:
+                  replicas: 1
+                  restart_policy:
+                    condition: on-failure
+                expose:
+                  - "6304"
+                networks:
+                  - my-network
+                volumes:
+                  - "./ts-admin-travel-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+                environment:
+                  JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6304,destfile=jacoco-it.exec,output=tcpserver,address=*"
 
   # ts-admin-user-service:
   #                 build: ts-admin-user-service
@@ -595,8 +601,14 @@ services:
   #                   replicas: 1
   #                   restart_policy:
   #                     condition: on-failure
+  #                 expose:
+  #                   - "6305"
   #                 networks:
   #                   - my-network
+  #                 volumes:
+  #                   - "./ts-admin-user-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+  #                 environment:
+  #                   JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6305,destfile=jacoco-it.exec,output=tcpserver,address=*"
 
 networks:
     my-network:
