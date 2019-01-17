@@ -1,46 +1,46 @@
 version: '3'
 services:
 
-  # rabbitmq:
-  #   image: rabbitmq:management
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - my-network
+
+  # kafka:
+  #   container_name: kafka
+  #   image: spotify/kafka:latest
   #   ports:
-  #     - 5672:5672
-  #     - 15672:15672
+  #    - 2181:2181
+  #    - 9092:9092
   #   networks:
   #     - my-network
 
-  # # kafka:
-  # #   container_name: kafka
-  # #   image: spotify/kafka:latest
-  # #   ports:
-  # #    - 2181:2181
-  # #    - 9092:9092
-  # #   networks:
-  # #     - my-network
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+    networks:
+      - my-network
 
-  # zipkin:
-  #   image: openzipkin/zipkin
-  #   ports:
-  #     - 9411:9411
-  #   networks:
-  #     - my-network
-
-  # redis:
-  #   image: redis
-  #   ports:
-  #     - 6379:6379
-  #   networks:
-  #     - my-network
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    networks:
+      - my-network
 
 
-  # ts-ui-dashboard:
-  #   build: ts-ui-dashboard
-  #   image: ts/ts-ui-dashboard
-  #   restart: always
-  #   ports:
-  #     - 80:8080
-  #   networks:
-  #     - my-network
+  ts-ui-dashboard:
+    build: ts-ui-dashboard
+    image: ts/ts-ui-dashboard
+    restart: always
+    ports:
+      - 80:8080
+    networks:
+      - my-network
 
   ts-login-service:
     build: ts-login-service
@@ -72,455 +72,656 @@ services:
     networks:
       - my-network
 
-  # ts-account-mongo:
-  #   image: mongo
-  #   networks:
-  #     - my-network
-
-  # ts-route-service:
-  #   build: ts-route-service
-  #   image: ts/ts-route-service
-  #   restart: always
-  #   ports:
-  #        - 11178:11178
-  #   networks:
-  #     - my-network
-
-  # ts-route-mongo:
-  #   image: mongo
-  #   networks:
-  #       - my-network
-
-
-  # ts-register-service:
-  #   build: ts-register-service
-  #   image: ts/ts-register-service
-  #   restart: always
-  #   ports:
-  #     - 12344:12344
-  #   networks:
-  #     - my-network
-
-
-  # ts-sso-service:
-  #   build: ts-sso-service
-  #   image: ts/ts-sso-service
-  #   restart: always
-  #   ports:
-  #     - 12349:12349
-  #   networks:
-  #     - my-network
-
-
-
-  # ts-verification-code-service:
-  #   build: ts-verification-code-service
-  #   image: ts/ts-verification-code-service
-  #   restart: always
-  #   ports:
-  #     - 15678:15678
-  #   networks:
-  #     - my-network
-
-  # ts-verification-code-mongo:
-  #   image: mongo
-  #   networks:
-  #       - my-network
-
-  # ts-contacts-service:
-  #   build: ts-contacts-service
-  #   image: ts/ts-contacts-service
-  #   restart: always
-  #   ports:
-  #     - 12347:12347
-  #   networks:
-  #     - my-network
-
-  # ts-contacts-mongo:
-  #     image: mongo
-  #     networks:
-  #       - my-network
-
-  # ts-order-service:
-  #   build: ts-order-service
-  #   image: ts/ts-order-service
-  #   restart: always
-  #   ports:
-  #     - 12031:12031
-  #   networks:
-  #     - my-network
-
-  # ts-order-mongo:
-  #   image: mongo
-  #   networks:
-  #     - my-network
-
-
-  # ts-order-other-service:
-  #   build: ts-order-other-service
-  #   image: ts/ts-order-other-service
-  #   restart: always
-  #   ports:
-  #     - 12032:12032
-  #   networks:
-  #     - my-network
-
-  # ts-order-other-mongo:
-  #   image: mongo
-  #   networks:
-  #     - my-network
-
-
-  # ts-config-service:
-  #   build: ts-config-service
-  #   image: ts/ts-config-service
-  #   restart: always
-  #   ports:
-  #     - 15679:15679
-  #   networks:
-  #     - my-network
-
-  # ts-config-mongo:
-  #   image: mongo
-  #   networks:
-  #     - my-network
-
-  # ts-station-service:
-  #   build: ts-station-service
-  #   image: ts/ts-station-service
-  #   restart: always
-  #   ports:
-  #     - 12345:12345
-  #   networks:
-  #     - my-network
-
-  # ts-station-mongo:
-  #   image: mongo
-  #   networks:
-  #     - my-network
-
-  # ts-train-service:
-  #   build: ts-train-service
-  #   image: ts/ts-train-service
-  #   restart: always
-  #   ports:
-  #     - 14567:14567
-  #   networks:
-  #     - my-network
-
-  # ts-train-mongo:
-  #   image: mongo
-  #   networks:
-  #     - my-network
-
-  # ts-travel-service:
-  #   build: ts-travel-service
-  #   image: ts/ts-travel-service
-  #   restart: always
-  #   ports:
-  #     - 12346:12346
-  #   networks:
-  #     - my-network
-
-  # ts-travel-mongo:
-  #   image: mongo
-  #   networks:
-  #     - my-network
-
-  # ts-travel2-service:
-  #     build: ts-travel2-service
-  #     image: ts/ts-travel2-service
-  #     restart: always
-  #     ports:
-  #       - 16346:16346
-  #     networks:
-  #       - my-network
-
-  # ts-travel2-mongo:
-  #     image: mongo
-  #     networks:
-  #       - my-network
-
-  # ts-preserve-service:
-  #   build: ts-preserve-service
-  #   image: ts/ts-preserve-service
-  #   restart: always
-  #   ports:
-  #     - 14568:14568
-  #   networks:
-  #     - my-network
-
-  # ts-preserve-other-service:
-  #   build: ts-preserve-other-service
-  #   image: ts/ts-preserve-other-service
-  #   restart: always
-  #   ports:
-  #     - 14569:14569
-  #   networks:
-  #     - my-network
-
-
-  # ts-basic-service:
-  #     build: ts-basic-service
-  #     image: ts/ts-basic-service
-  #     restart: always
-  #     ports:
-  #       - 15680:15680
-  #     networks:
-  #         - my-network
-
-  # ts-ticketinfo-service:
-  #       build: ts-ticketinfo-service
-  #       image: ts/ts-ticketinfo-service
-  #       restart: always
-  #       ports:
-  #         - 15681:15681
-  #       networks:
-  #         - my-network
-
-  # ts-price-service:
-  #       build: ts-price-service
-  #       image: ts/ts-price-service
-  #       restart: always
-  #       ports:
-  #         - 16579:16579
-  #       networks:
-  #         - my-network
-
-  # ts-price-mongo:
-  #       image: mongo
-  #       networks:
-  #         - my-network
-
-  # ts-notification-service:
-  #       build: ts-notification-service
-  #       image: ts/ts-notification-service
-  #       restart: always
-  #       ports:
-  #         - 17853:17853
-  #       networks:
-  #         - my-network
-
-  # ts-security-service:
-  #       build: ts-security-service
-  #       image: ts/ts-security-service
-  #       restart: always
-  #       ports:
-  #         - 11188:11188
-  #       networks:
-  #         - my-network
-
-  # ts-security-mongo:
-  #       image: mongo
-  #       networks:
-  #         - my-network
-
-  # ts-inside-payment-service:
-  #       build: ts-inside-payment-service
-  #       image: ts/ts-inside-payment-service
-  #       restart: always
-  #       ports:
-  #         - 18673:18673
-  #       networks:
-  #         - my-network
-
-  # ts-inside-payment-mongo:
-  #       image: mongo
-  #       networks:
-  #         - my-network
-
-  # ts-execute-service:
-  #       build: ts-execute-service
-  #       image: ts/ts-execute-service
-  #       restart: always
-  #       ports:
-  #         - 12386:12386
-  #       networks:
-  #         - my-network
-
-  # ts-payment-service:
-  #       build: ts-payment-service
-  #       image: ts/ts-payment-service
-  #       restart: always
-  #       ports:
-  #         - 19001:19001
-  #       networks:
-  #         - my-network
-
-  # ts-payment-mongo:
-  #       image: mongo
-  #       networks:
-  #         - my-network
-
-  # ts-rebook-service:
-  #       build: ts-rebook-service
-  #       image: ts/ts-rebook-service
-  #       restart: always
-  #       ports:
-  #         - 18886:18886
-  #       networks:
-  #         - my-network
-
-  # ts-rebook-mongo:
-  #       image: mongo
-  #       networks:
-  #         - my-network
-
-  # ts-cancel-service:
-  #       build: ts-cancel-service
-  #       image: ts/ts-cancel-service
-  #       restart: always
-  #       ports:
-  #         - 18885:18885
-  #       networks:
-  #         - my-network
-
-  # ts-assurance-service:
-  #       build: ts-assurance-service
-  #       image: ts/ts-assurance-service
-  #       restart: always
-  #       ports:
-  #         - 18888:18888
-  #       networks:
-  #         - my-network
-
-  # ts-assurance-mongo:
-  #       image: mongo
-  #       networks:
-  #         - my-network
-
-  # ts-seat-service:
-  #       build: ts-seat-service
-  #       image: ts/ts-seat-service
-  #       restart: always
-  #       ports:
-  #         - 18898:18898
-  #       networks:
-  #         - my-network
-
-  # ts-travel-plan-service:
-  #       build: ts-travel-plan-service
-  #       image: ts/ts-travel-plan-service
-  #       restart: always
-  #       ports:
-  #         - 14322:14322
-  #       networks:
-  #         - my-network
-
-  # ts-ticket-office-service:
-  #       build: ts-ticket-office-service
-  #       image: ts/ts-ticket-office-service
-  #       restart: always
-  #       ports:
-  #         - 16108:16108
-  #       networks:
-  #         - my-network
-
-  # ts-ticket-office-mongo:
-  #         image: mongo
-  #         networks:
-  #           - my-network
-
-  # ts-news-service:
-  #   build: ts-news-service
-  #   image: ts/ts-news-service
-  #   restart: always
-  #   ports:
-  #     - 12862:12862
-  #   networks:
-  #     - my-network
-
-  # ts-news-mongo:
-  #       image: mongo
-  #       networks:
-  #         - my-network
-
-  # ts-voucher-mysql:
-  #        image: mysql
-  #        expose:
-  #           - "3306"
-  #        environment:
-  #          MYSQL_ROOT_PASSWORD: root
-  #        networks:
-  #          - my-network
-
-  # ts-voucher-service:
-  #         build: ts-voucher-service
-  #         image: ts/ts-voucher-service
-  #         restart: always
-  #         ports:
-  #           - 16101:16101
-  #         depends_on:
-  #           - ts-voucher-mysql
-  #         volumes:
-  #           - /var/lib/mysql
-  #         networks:
-  #           - my-network
-
-  # ts-food-map-service:
-  #       build: ts-food-map-service
-  #       image: ts/ts-food-map-service
-  #       restart: always
-  #       ports:
-  #         - 18855:18855
-  #       networks:
-  #         - my-network
-
-  # ts-food-map-mongo:
-  #         image: mongo
-  #         networks:
-  #           - my-network
-
-  # ts-route-plan-service:
-  #         build: ts-route-plan-service
-  #         image: ts/ts-route-plan-service
-  #         restart: always
-  #         ports:
-  #           - 14578:14578
-  #         networks:
-  #           - my-network
-
-  # ts-food-service:
-  #     build: ts-food-service
-  #     image: ts/ts-food-service
-  #     restart: always
-  #     ports:
-  #       - 18856:18856
-  #     networks:
-  #       - my-network
-
-  # ts-consign-service:
-  #           build: ts-consign-service
-  #           image: ts/ts-consign-service
-  #           restart: always
-  #           ports:
-  #             - 16111:16111
-  #           networks:
-  #             - my-network
-
-  # ts-consign-mongo:
-  #           image: mongo
-  #           networks:
-  #             - my-network
-
-  # ts-consign-price-service:
-  #           build: ts-consign-price-service
-  #           image: ts/ts-consign-price-service
-  #           restart: always
-  #           ports:
-  #             - 16110:16110
-  #           networks:
-  #             - my-network
-
-  # ts-consign-price-mongo:
-  #           image: mongo
-  #           networks:
-  #             - my-network
-
-  # ts-food-mongo:
-  #           image: mongo
-  #           networks:
-  #             - my-network
+  ts-account-mongo:
+    image: mongo
+    networks:
+      - my-network
+
+  ts-route-service:
+    build: ts-route-service
+    image: ts/ts-route-service
+    restart: always
+    ports:
+         - 11178:11178
+    expose:
+      - "6326"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-route-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6326,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-route-mongo:
+    image: mongo
+    networks:
+        - my-network
+
+
+  ts-register-service:
+    build: ts-register-service
+    image: ts/ts-register-service
+    restart: always
+    ports:
+      - 12344:12344
+    expose:
+      - "6325"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-register-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6325,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+
+  ts-sso-service:
+    build: ts-sso-service
+    image: ts/ts-sso-service
+    restart: always
+    ports:
+      - 12349:12349
+    expose:
+      - "6329"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-sso-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6329,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+
+
+  ts-verification-code-service:
+    build: ts-verification-code-service
+    image: ts/ts-verification-code-service
+    restart: always
+    ports:
+      - 15678:15678
+    # expose:
+    #   - "6336"
+    networks:
+      - my-network
+    # volumes:
+    #   - "./ts-verification-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    # environment:
+    #   JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6336,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-verification-code-mongo:
+    image: mongo
+    networks:
+        - my-network
+
+  ts-contacts-service:
+    build: ts-contacts-service
+    image: ts/ts-contacts-service
+    restart: always
+    ports:
+      - 12347:12347
+    expose:
+      - "6312"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-contacts-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6312,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-contacts-mongo:
+      image: mongo
+      networks:
+        - my-network
+
+  ts-order-service:
+    build: ts-order-service
+    image: ts/ts-order-service
+    restart: always
+    ports:
+      - 12031:12031
+    expose:
+      - "6319"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-order-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6319,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+
+  ts-order-mongo:
+    image: mongo
+    networks:
+      - my-network
+
+
+  ts-order-other-service:
+    build: ts-order-other-service
+    image: ts/ts-order-other-service
+    restart: always
+    ports:
+      - 12032:12032
+    expose:
+      - "6318"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-order-other-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6318,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-order-other-mongo:
+    image: mongo
+    networks:
+      - my-network
+
+
+  ts-config-service:
+    build: ts-config-service
+    image: ts/ts-config-service
+    restart: always
+    ports:
+      - 15679:15679
+    expose:
+      - "6309"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-config-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6309,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+
+  ts-config-mongo:
+    image: mongo
+    networks:
+      - my-network
+
+  ts-station-service:
+    build: ts-station-service
+    image: ts/ts-station-service
+    restart: always
+    ports:
+      - 12345:12345
+    expose:
+      - "6330"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-station-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6330,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-station-mongo:
+    image: mongo
+    networks:
+      - my-network
+
+  ts-train-service:
+    build: ts-train-service
+    image: ts/ts-train-service
+    restart: always
+    ports:
+      - 14567:14567
+    expose:
+      - "6332"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-train-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6332,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-train-mongo:
+    image: mongo
+    networks:
+      - my-network
+
+  ts-travel-service:
+    build: ts-travel-service
+    image: ts/ts-travel-service
+    restart: always
+    ports:
+      - 12346:12346
+    expose:
+      - "6334"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-travel-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6334,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-travel-mongo:
+    image: mongo
+    networks:
+      - my-network
+
+  ts-travel2-service:
+    build: ts-travel2-service
+    image: ts/ts-travel2-service
+    restart: always
+    ports:
+      - 16346:16346
+    expose:
+      - "6335"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-travel2-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6335,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-travel2-mongo:
+      image: mongo
+      networks:
+        - my-network
+
+  ts-preserve-service:
+    build: ts-preserve-service
+    image: ts/ts-preserve-service
+    restart: always
+    ports:
+      - 14568:14568
+    expose:
+      - "6322"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-preserve-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6322,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-preserve-other-service:
+    build: ts-preserve-other-service
+    image: ts/ts-preserve-other-service
+    restart: always
+    ports:
+      - 14569:14569
+    expose:
+      - "6321"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-preserve-other-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6321,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+
+  ts-basic-service:
+      build: ts-basic-service
+      image: ts/ts-basic-service
+      restart: always
+      ports:
+        - 15680:15680
+      expose:
+        - "6307"
+      networks:
+        - my-network
+      volumes:
+        - "./ts-basic-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+      environment:
+        JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6307,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-ticketinfo-service:
+    build: ts-ticketinfo-service
+    image: ts/ts-ticketinfo-service
+    restart: always
+    ports:
+      - 15681:15681
+    expose:
+      - "6331"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-ticketinfo-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6331,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-price-service:
+        build: ts-price-service
+        image: ts/ts-price-service
+        restart: always
+        ports:
+          - 16579:16579
+        expose:
+          - "6323"
+        networks:
+          - my-network
+        volumes:
+          - "./ts-price-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+        environment:
+          JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6323,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-price-mongo:
+        image: mongo
+        networks:
+          - my-network
+
+  ts-notification-service:
+        build: ts-notification-service
+        image: ts/ts-notification-service
+        restart: always
+        ports:
+          - 17853:17853
+        expose:
+          - "6317"
+        networks:
+          - my-network
+        volumes:
+          - "./ts-notification-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+        environment:
+          JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6317,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-security-service:
+    build: ts-security-service
+    image: ts/ts-security-service
+    restart: always
+    ports:
+      - 11188:11188
+    expose:
+      - "6328"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-security-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6328,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-security-mongo:
+        image: mongo
+        networks:
+          - my-network
+
+  ts-inside-payment-service:
+        build: ts-inside-payment-service
+        image: ts/ts-inside-payment-service
+        restart: always
+        ports:
+          - 18673:18673
+        expose:
+          - "6316"
+        networks:
+          - my-network
+        volumes:
+          - "./ts-inside-payment-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+        environment:
+          JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6316,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-inside-payment-mongo:
+        image: mongo
+        networks:
+          - my-network
+
+  ts-execute-service:
+        build: ts-execute-service
+        image: ts/ts-execute-service
+        restart: always
+        ports:
+          - 12386:12386
+        expose:
+          - "6313"
+        networks:
+          - my-network
+        volumes:
+          - "./ts-execute-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+        environment:
+          JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6313,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-payment-service:
+        build: ts-payment-service
+        image: ts/ts-payment-service
+        restart: always
+        ports:
+          - 19001:19001
+        expose:
+          - "6320"
+        networks:
+          - my-network
+        volumes:
+          - "./ts-payment-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+        environment:
+          JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6320,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+
+  ts-payment-mongo:
+        image: mongo
+        networks:
+          - my-network
+
+  ts-rebook-service:
+        build: ts-rebook-service
+        image: ts/ts-rebook-service
+        restart: always
+        ports:
+          - 18886:18886
+        expose:
+          - "6324"
+        networks:
+          - my-network
+        volumes:
+          - "./ts-rebook-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+        environment:
+          JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6324,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-rebook-mongo:
+        image: mongo
+        networks:
+          - my-network
+
+  ts-cancel-service:
+        build: ts-cancel-service
+        image: ts/ts-cancel-service
+        restart: always
+        ports:
+          - 18885:18885
+        expose:
+          - "6308"
+        networks:
+          - my-network
+        volumes:
+          - "./ts-cancel-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+        environment:
+          JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6308,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-assurance-service:
+        build: ts-assurance-service
+        image: ts/ts-assurance-service
+        restart: always
+        ports:
+          - 18888:18888
+        expose:
+          - "6306"
+        networks:
+          - my-network
+        volumes:
+          - "./ts-admin-user-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+        environment:
+          JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6306,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-assurance-mongo:
+        image: mongo
+        networks:
+          - my-network
+
+  ts-seat-service:
+    build: ts-seat-service
+    image: ts/ts-seat-service
+    restart: always
+    ports:
+      - 18898:18898
+    expose:
+      - "6327"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-seat-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6327,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-travel-plan-service:
+    build: ts-travel-plan-service
+    image: ts/ts-travel-plan-service
+    restart: always
+    ports:
+      - 14322:14322
+    # expose:
+    #   - "6333"
+    networks:
+      - my-network
+    # volumes:
+    #   - "./ts-travel-plan-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    # environment:
+    #   JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6333,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-ticket-office-service:
+    build: ts-ticket-office-service
+    image: ts/ts-ticket-office-service
+    restart: always
+    ports:
+      - 16108:16108
+    expose:
+      - "6338"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-ticket-office-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6338,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-ticket-office-mongo:
+          image: mongo
+          networks:
+            - my-network
+
+  ts-news-service:
+    build: ts-news-service
+    image: ts/ts-news-service
+    restart: always
+    ports:
+      - 12862:12862
+    networks:
+      - my-network
+
+  ts-news-mongo:
+        image: mongo
+        networks:
+          - my-network
+
+  ts-voucher-mysql:
+         image: mysql
+         expose:
+            - "3306"
+         environment:
+           MYSQL_ROOT_PASSWORD: root
+         networks:
+           - my-network
+
+  ts-voucher-service:
+          build: ts-voucher-service
+          image: ts/ts-voucher-service
+          restart: always
+          ports:
+            - 16101:16101
+          depends_on:
+            - ts-voucher-mysql
+          volumes:
+            - /var/lib/mysql
+          networks:
+            - my-network
+
+  ts-food-map-service:
+        build: ts-food-map-service
+        image: ts/ts-food-map-service
+        restart: always
+        ports:
+          - 18855:18855
+        expose:
+          - "6314"
+        networks:
+          - my-network
+        volumes:
+          - "./ts-food-map-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+        environment:
+          JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6314,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-food-map-mongo:
+          image: mongo
+          networks:
+            - my-network
+
+  ts-route-plan-service:
+    build: ts-route-plan-service
+    image: ts/ts-route-plan-service
+    restart: always
+    ports:
+      - 14578:14578
+    expose:
+      - "6337"
+    networks:
+      - my-network
+    volumes:
+      - "./ts-route-plan-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6337,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-food-service:
+      build: ts-food-service
+      image: ts/ts-food-service
+      restart: always
+      ports:
+        - 18856:18856
+      expose:
+        - "6315"
+      networks:
+        - my-network
+      volumes:
+        - "./ts-food-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+      environment:
+        JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6315,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-consign-service:
+            build: ts-consign-service
+            image: ts/ts-consign-service
+            restart: always
+            ports:
+              - 16111:16111
+            expose:
+                - "6311"
+            networks:
+              - my-network
+            volumes:
+              - "./ts-consign-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+            environment:
+              JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6311,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-consign-mongo:
+            image: mongo
+            networks:
+              - my-network
+
+  ts-consign-price-service:
+            build: ts-consign-price-service
+            image: ts/ts-consign-price-service
+            restart: always
+            ports:
+              - 16110:16110
+            expose:
+                - "6310"
+            networks:
+              - my-network
+            volumes:
+              - "./ts-consign-price-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+            environment:
+              JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6310,destfile=jacoco-it.exec,output=tcpserver,address=*"
+
+  ts-consign-price-mongo:
+            image: mongo
+            networks:
+              - my-network
+
+  ts-food-mongo:
+            image: mongo
+            networks:
+              - my-network
 
   ts-admin-basic-info-service:
         build: ts-admin-basic-info-service
@@ -591,24 +792,24 @@ services:
                 environment:
                   JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6304,destfile=jacoco-it.exec,output=tcpserver,address=*"
 
-  # ts-admin-user-service:
-  #                 build: ts-admin-user-service
-  #                 image: ts/ts-admin-user-service
-  #                 restart: always
-  #                 ports:
-  #                   - 16115:16115
-  #                 deploy:
-  #                   replicas: 1
-  #                   restart_policy:
-  #                     condition: on-failure
-  #                 expose:
-  #                   - "6305"
-  #                 networks:
-  #                   - my-network
-  #                 volumes:
-  #                   - "./ts-admin-user-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
-  #                 environment:
-  #                   JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6305,destfile=jacoco-it.exec,output=tcpserver,address=*"
+  ts-admin-user-service:
+                  build: ts-admin-user-service
+                  image: ts/ts-admin-user-service
+                  restart: always
+                  ports:
+                    - 16115:16115
+                  deploy:
+                    replicas: 1
+                    restart_policy:
+                      condition: on-failure
+                  expose:
+                    - "6305"
+                  networks:
+                    - my-network
+                  volumes:
+                    - "./ts-admin-user-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+                  environment:
+                    JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6305,destfile=jacoco-it.exec,output=tcpserver,address=*"
 
 networks:
     my-network:
