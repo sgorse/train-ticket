@@ -19,6 +19,11 @@ public class VerificationCodeController {
 	@Autowired
 	private VerificationCodeService verificationCodeService;
 
+	@RequestMapping(path = "/welcome", method = RequestMethod.GET)
+    public String home() {
+        return "Welcome to [ Verification Code Service ] !";
+    }
+
 
 	@RequestMapping(value="/error",method=RequestMethod.GET)
 	public String welcome(@RequestHeader HttpHeaders headers){

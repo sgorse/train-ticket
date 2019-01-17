@@ -137,14 +137,14 @@ services:
     restart: always
     ports:
       - 15678:15678
-    # expose:
-    #   - "6336"
+    expose:
+      - "6336"
     networks:
       - my-network
-    # volumes:
-    #   - "./ts-verification-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
-    # environment:
-    #   JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6336,destfile=jacoco-it.exec,output=tcpserver,address=*"
+    volumes:
+      - "./ts-verification-code-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6336,destfile=jacoco-it.exec,output=tcpserver,address=*"
 
   ts-verification-code-mongo:
     image: mongo
@@ -563,14 +563,14 @@ services:
     restart: always
     ports:
       - 14322:14322
-    # expose:
-    #   - "6333"
+    expose:
+      - "6333"
     networks:
       - my-network
-    # volumes:
-    #   - "./ts-travel-plan-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
-    # environment:
-    #   JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6333,destfile=jacoco-it.exec,output=tcpserver,address=*"
+    volumes:
+      - "./ts-travel-plan-service/jacoco/jacocoagent.jar:/jacocoagent.jar"
+    environment:
+      JAVA_TOOL_OPTIONS: "-javaagent:/jacocoagent.jar=port=6333,destfile=jacoco-it.exec,output=tcpserver,address=*"
 
   ts-ticket-office-service:
     build: ts-ticket-office-service
